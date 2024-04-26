@@ -281,6 +281,26 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
     }
 }
 
+- (CLLocation *)abn_activityLocation {
+    // Retrieve latitude and longitude from userInfo
+    NSString *latitude = self.userInfo[@"latitude"];
+    NSString *longitude = self.userInfo[@"longitude"];
+
+    // Check if both latitude and longitude are available
+    if (latitude && longitude) {
+        CLLocationDegrees latDegrees = [latitude doubleValue];
+        CLLocationDegrees lonDegrees = [longitude doubleValue];
+
+        // Create a CLLocation object with the extracted coordinates
+        CLLocation *location = [[CLLocation alloc] initWithLatitude:latDegrees longitude:lonDegrees];
+        return location;
+    }
+
+    // Return nil if either coordinate is missing
+    return nil;
+}
+
+
 - (NSURL *)wmf_contentURL {
     return self.userInfo[@"WMFURL"];
 }

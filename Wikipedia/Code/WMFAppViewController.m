@@ -1176,10 +1176,14 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             [self setSelectedIndex:WMFAppTabTypePlaces];
             [self.navigationController popToRootViewControllerAnimated:animated];
             NSURL *articleURL = activity.wmf_linkURL;
+            CLLocation *location = activity.abn_activityLocation;
             [[self placesViewController] updateViewModeToMap];
             if (articleURL) {
                 // For "View on a map" action to succeed, view mode has to be set to map.
                 [[self placesViewController] showArticleURL:articleURL];
+            }
+            if (location) {
+                [[self placesViewController] showLocationOnMap:location];
             }
         } break;
         case WMFUserActivityTypeContent: {

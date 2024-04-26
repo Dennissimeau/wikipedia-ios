@@ -1951,6 +1951,16 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         currentSearch = PlaceSearch(filter: .top, type: .location, origin: .user, sortStyle: .links, string: nil, region: region, localizedDescription: title, searchResult: searchResult, siteURL: articleURL.wmf_site)
     }
     
+    @objc public func showLocationOnMap(_ location: CLLocation) {
+        let regionRadius: CLLocationDistance = 1000
+        let coordinateRegion = MKCoordinateRegion(
+            center: location.coordinate,
+            latitudinalMeters: regionRadius,
+            longitudinalMeters: regionRadius
+        )
+        mapView.setRegion(coordinateRegion, animated: true)
+    }
+    
     fileprivate func searchForFirstSearchSuggestion() {
         if !searchSuggestionController.searches[PlaceSearchSuggestionController.completionSection].isEmpty {
             currentSearch = searchSuggestionController.searches[PlaceSearchSuggestionController.completionSection][0]
